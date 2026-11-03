@@ -1,0 +1,9 @@
+field,value,source_reference
+Student,Learner,Self-entered
+University,UPES Dehradun,Self-entered
+Programme,B.Tech Computer Science and Engineering,Self-entered
+Total semesters,8,Programme structure
+Programme summary,"Sem 1-2: engineering + programming foundations. Sem 3-5: core computer science. Sem 6-7: specialisation, electives and internship. Sem 8: capstone project.",Prototype summary - verify with official handbook
+Official syllabus document,,Add the link to the official programme syllabus PDF here
+Official CGPA formula,,Not loaded - add only from the official academic regulations
+Exam and attendance regulations,,Not loaded - add only from the official academic regulations
