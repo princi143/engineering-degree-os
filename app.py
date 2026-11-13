@@ -548,7 +548,44 @@ def get_secret(name: str) -> str | None:
     return os.environ.get(name) or None
 
 
-GEMINI_KEY = get_secret("GEMINI_API_KEY")
+SECRETS_FILE = APP_DIR / ".streamlit" / "secrets.toml"
+
+
+def read_local_key() -> str | None:
+    """Read GEMINI_API_KEY straight from .streamlit/secrets.toml (picks up a key saved during this session)."""
+    try:
+        m = re.search(r'^\s*GEMINI_API_KEY\s*=\s*"([^"]+)"', SECRETS_FILE.read_text(encoding="utf-8"), re.M)
+        return m.group(1).strip() if m else None
+    except OSError:
+        return None
+
+
+def save_local_key(key: str) -> None:
+    """Write/replace GEMINI_API_KEY in .streamlit/secrets.toml (this file is in .gitignore, never pushed)."""
+    SECRETS_FILE.parent.mkdir(parents=True, exist_ok=True)
+    lines = []
+    if SECRETS_FILE.exists():
+        lines = [ln for ln in SECRETS_FILE.read_text(encoding="utf-8").splitlines()
+                 if not re.match(r"^\s*GEMINI_API_KEY\s*=", ln)]
+    lines.append(f'GEMINI_API_KEY = "{key}"')
+    SECRETS_FILE.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def remove_local_key() -> None:
+    if SECRETS_FILE.exists():
+        keep = [ln for ln in SECRETS_FILE.read_text(encoding="utf-8").splitlines()
+                if not re.match(r"^\s*GEMINI_API_KEY\s*=", ln)]
+        SECRETS_FILE.write_text("\n".join(keep) + ("\n" if keep else ""), encoding="utf-8")
+
+
+if st.session_state.get("gemini_key"):
+    GEMINI_KEY, GEMINI_SOURCE = st.session_state["gemini_key"], "session"
+elif read_local_key():
+    GEMINI_KEY, GEMINI_SOURCE = read_local_key(), "file"
+elif get_secret("GEMINI_API_KEY"):
+    GEMINI_KEY, GEMINI_SOURCE = get_secret("GEMINI_API_KEY"), "secrets"
+else:
+    GEMINI_KEY, GEMINI_SOURCE = None, None
 
 st.markdown(CSS, unsafe_allow_html=True)
 
@@ -1460,16 +1497,17 @@ def build_context() -> str:
     return "\n\n".join(parts)
 
 
-def gemini_answer(q: str, history: list[dict]) -> tuple[str, list[str], str]:
+AUTH_ERR = re.compile(r"api[_ ]?key|API_KEY_INVALID|PERMISSION_DENIED|UNAUTHENTICATED|\b401\b|\b403\b", re.I)
+
+
+def gemini_generate(key: str, prompt: str, system: str) -> tuple[str, str]:
+    """Call Gemini, trying a few model names in order. Stops early if the key itself is rejected."""
     from google import genai
     from google.genai import types
 
-    client = genai.Client(api_key=GEMINI_KEY)
-    hist = "\n".join(f"{m['role'].upper()}: {m['content'][:400]}" for m in history[-6:])
-    prompt = (f"DEGREE OS DATA (the only source of truth):\n{build_context()}\n\n"
-              f"RECENT CHAT:\n{hist or '(none)'}\n\nSTUDENT QUESTION: {q}")
+    client = genai.Client(api_key=key)
     candidates = []
-    for m in (get_secret("GEMINI_MODEL"), "gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-2.0-flash"):
+    for m in (get_secret("GEMINI_MODEL"), "gemini-2.5-flash", "gemini-flash-latest", "gemini-2.5-flash-lite", "gemini-2.0-flash"):
         if m and m not in candidates:
             candidates.append(m)
     last_err: Exception | None = None
@@ -1477,20 +1515,43 @@ def gemini_answer(q: str, history: list[dict]) -> tuple[str, list[str], str]:
         try:
             resp = client.models.generate_content(
                 model=model, contents=prompt,
-                config=types.GenerateContentConfig(system_instruction=SYSTEM_INSTRUCTION + "\n" + FORMAT_RULES, temperature=0.2),
+                config=types.GenerateContentConfig(system_instruction=system, temperature=0.2),
             )
             text = (resp.text or "").strip()
             if not text:
                 raise RuntimeError("empty response")
-            areas: list[str] = []
-            mm = re.search(r"^\s*DATA_AREAS:\s*(.+)$", text, re.M | re.I)
-            if mm:
-                areas = [a.strip(" .`*_") for a in mm.group(1).split(",") if a.strip(" .`*_")]
-                text = (text[:mm.start()] + text[mm.end():]).strip()
-            return text, areas, model
+            return text, model
         except Exception as exc:  # noqa: BLE001
             last_err = exc
+            if AUTH_ERR.search(str(exc)):
+                break  # a bad key fails on every model - no point trying the rest
     raise last_err or RuntimeError("Gemini unavailable")
+
+
+def test_gemini_key(key: str) -> tuple[bool, str]:
+    try:
+        _, model = gemini_generate(key, "Reply with the single word OK.", "You are a connection test.")
+        return True, model
+    except Exception as exc:  # noqa: BLE001
+        msg = str(exc)
+        if AUTH_ERR.search(msg):
+            return False, "Google rejected this key. Copy it again from aistudio.google.com/apikey (no spaces)."
+        if re.search(r"429|RESOURCE_EXHAUSTED|quota", msg, re.I):
+            return False, "The key works but its free quota is used up right now. Wait a minute and try again."
+        return False, f"Could not reach Gemini ({type(exc).__name__}): {msg[:160]}"
+
+
+def gemini_answer(q: str, history: list[dict]) -> tuple[str, list[str], str]:
+    hist = "\n".join(f"{m['role'].upper()}: {m['content'][:400]}" for m in history[-6:])
+    prompt = (f"DEGREE OS DATA (the only source of truth):\n{build_context()}\n\n"
+              f"RECENT CHAT:\n{hist or '(none)'}\n\nSTUDENT QUESTION: {q}")
+    text, model = gemini_generate(GEMINI_KEY, prompt, SYSTEM_INSTRUCTION + "\n" + FORMAT_RULES)
+    areas: list[str] = []
+    mm = re.search(r"^\s*DATA_AREAS:\s*(.+)$", text, re.M | re.I)
+    if mm:
+        areas = [a.strip(" .`*_") for a in mm.group(1).split(",") if a.strip(" .`*_")]
+        text = (text[:mm.start()] + text[mm.end():]).strip()
+    return text, areas, model
 
 
 def degree_ai(q: str, history: list[dict]) -> dict:
@@ -1536,14 +1597,57 @@ def render_msg(m: dict) -> None:
             st.caption(f"📂 Data used: {areas}  ·  ⚙️ {m.get('engine', 'Local engine')}{badge}")
 
 
+def connect_gemini_panel() -> None:
+    source_txt = {"session": "this browser session only", "file": "saved on this computer (.streamlit/secrets.toml)",
+                  "secrets": "Streamlit Cloud secrets"}.get(GEMINI_SOURCE or "", "")
+    with st.expander("🔑 Connect Gemini" + (f"  ·  connected via {source_txt}" if GEMINI_KEY else ""), expanded=not GEMINI_KEY):
+        if GEMINI_KEY:
+            st.success(f"Gemini is connected ({source_txt}).")
+            if GEMINI_SOURCE == "secrets":
+                st.caption("To change this key, edit it in your Streamlit Cloud app → Settings → Secrets.")
+            elif st.button("Disconnect Gemini", key="gemini_off"):
+                st.session_state.pop("gemini_key", None)
+                if GEMINI_SOURCE == "file":
+                    remove_local_key()
+                st.rerun()
+            return
+        st.markdown("1. Open **[aistudio.google.com/apikey](https://aistudio.google.com/apikey)** and sign in with Google.\n"
+                    "2. Click **Create API key** and copy it.\n3. Paste it below and press **Connect**.")
+        with st.form("gemini_form", clear_on_submit=False):
+            key = st.text_input("Gemini API key", type="password", placeholder="AIza…")
+            remember = st.checkbox("Remember on this computer (saved to .streamlit/secrets.toml — never pushed to GitHub)", value=True)
+            go = st.form_submit_button("Connect", type="primary")
+        if go:
+            key = (key or "").strip().strip('"').strip("'")
+            if not key or re.search(r"\s", key):
+                st.error("Paste the key exactly as shown in AI Studio (one line, no spaces).")
+                return
+            with st.spinner("Testing the key with Gemini…"):
+                ok, info = test_gemini_key(key)
+            if not ok:
+                st.error(info)
+                return
+            st.session_state["gemini_key"] = key
+            if remember:
+                try:
+                    save_local_key(key)
+                except OSError as exc:
+                    st.warning(f"Connected for this session, but could not save the key to disk: {exc}")
+            st.toast(f"Gemini connected · {info}", icon="✅")
+            st.rerun()
+        st.caption("On the deployed Streamlit Cloud app, add the key once under App → Settings → Secrets as "
+                   '`GEMINI_API_KEY = "…"` so it stays connected for everyone who opens the link.')
+
+
 def page_ai() -> None:
     header(10, "Ask Degree AI", "A grounded assistant that answers only from your Degree OS data.")
     if GEMINI_KEY:
         note("🟢 <b>Gemini connected.</b> Answers are generated from a context built only from your CSVs. "
              "University-rule questions pass through a local safety layer first.", "info")
     else:
-        note("🟡 <b>AI API not connected</b> — running the deterministic local engine. Add <code>GEMINI_API_KEY</code> "
-             "to Streamlit secrets to enable natural-language generation.")
+        note("🟡 <b>AI API not connected</b> — running the deterministic local engine. "
+             "Use <b>Connect Gemini</b> below to switch on natural-language answers.")
+    connect_gemini_panel()
     st.session_state.setdefault("chat", [])
     subhead("Try a question")
     cols = st.columns(3)

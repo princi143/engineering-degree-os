@@ -55,9 +55,11 @@ All dates are `YYYY-MM-DD`. Calendar dates and syllabus topics are **sample data
 
 ## Phase 6 — Gemini (optional)
 
-1. Create a free key in Google AI Studio.
-2. Local: copy `.streamlit/secrets.toml.example` → `.streamlit/secrets.toml` and paste the key.
-3. Never commit `secrets.toml` (already in `.gitignore`).
+1. Create a free key at **aistudio.google.com/apikey**.
+2. **Easiest:** open **Ask Degree AI → 🔑 Connect Gemini**, paste the key, press **Connect**. The app tests the key and (if "Remember on this computer" is ticked) saves it to `.streamlit/secrets.toml`.
+3. Manual alternative: copy `.streamlit/secrets.toml.example` → `.streamlit/secrets.toml` and paste the key.
+4. Deployed app: Streamlit Cloud → App → **Settings → Secrets** → `GEMINI_API_KEY = "..."`.
+5. Never commit `secrets.toml` (already in `.gitignore`).
 
 Without a key, the chatbot still answers incomplete courses, next assessment, next holiday, course topics, semester status, scores and checklist status from the CSVs, and shows **"AI API not connected"** for questions needing generation.
 
