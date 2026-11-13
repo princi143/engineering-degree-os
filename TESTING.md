@@ -1,6 +1,6 @@
 # Phase 7 — Test evidence log
 
-Run date: 03 Nov 2026 · Streamlit 1.66.1 · pandas 3.0.5 · Tested with `streamlit.testing.v1.AppTest` and headless Chrome.
+Run date: 13 Nov 2026 (re-run after switching the current semester to Semester 3) · Streamlit 1.66.1 · pandas 3.0.5 · Tested with `streamlit.testing.v1.AppTest` and headless Chrome.
 
 ## Every page once (no crashes)
 
@@ -15,8 +15,8 @@ Run date: 03 Nov 2026 · Streamlit 1.66.1 · pandas 3.0.5 · Tested with `stream
 |---|---|---|---|
 | Course status changed (DevSecOps Lab → Completed) → Status Tracker | Completed 0 · In Progress 7 | Completed 1 · In Progress 6 | ✅ |
 | New holiday added → Calendar | 9 holidays | 10, "Test Fest Holiday" visible | ✅ |
-| New score added (OOAD assignment 10/10) → Scorecard | Sem 5: 78.7%, 33 assessments | Sem 5: 79.4%, 34 assessments | ✅ |
-| Checklist item marked Done → summary | Done 2 · Overdue 1 | Done 3 · Overdue 0 | ✅ |
+| New score added (OOAD assignment 10/10) → Scorecard | Sem 3: 78.7%, 20 assessments | Sem 3: 79.4%, 21 assessments | ✅ |
+| Checklist item marked Done → summary | Done 7 · Overdue 1 | Done 8 · Overdue 0 | ✅ |
 | Course table changes with semester filter | Sem 1: MATH1028, PHYS1019… | Sem 3: CSEG2001, CSEG2002… | ✅ |
 | Semester 1–8 all selectable | — | — | ✅ |
 | Data Admin loads all 7 tables with validation | — | — | ✅ |
@@ -25,15 +25,15 @@ Run date: 03 Nov 2026 · Streamlit 1.66.1 · pandas 3.0.5 · Tested with `stream
 
 | Question | Answer (summary) | Data used |
 |---|---|---|
-| What courses are still incomplete in Semester 3? | All 6 courses completed | Courses |
-| What subjects are left in Sem 5? | 7 of 7 in progress, listed | Courses |
-| When is my next internal assessment? | Lab Evaluation — DevSecOps Lab, Thu 05 Nov 2026 (in 2 days) + next four | Assessments |
-| Show my next holiday | Diwali, Sun 08 Nov 2026 (in 5 days) | Calendar |
+| What courses are still incomplete in Semester 2? | All 7 courses completed | Courses |
+| What subjects are left in Sem 3? | 7 of 7 in progress, listed | Courses |
+| When is my next internal assessment? | IA2 — Formal Languages and Automata Theory, 13 Nov 2026 + next four | Assessments |
+| Show my next holiday | Children's Day / College Holiday, Sat 14 Nov 2026 | Calendar |
 | What topics are in Data Structures? | Arrays, Linked lists, Stacks, Queues, Trees, Graphs, Hashing, Sorting | Courses |
 | What topics are in FLAT? | DFA/NFA … Turing machines | Courses |
 | What's overdue in my checklist? | Submit lab record file (due 30 Oct) | Plan |
-| Status of semester 6 | Not Started, 0/24 credits, 7 courses | Semesters |
-| How are my scores in semester 4? | Prototype score 85.4% + per course | Scores |
+| Status of semester 4 | Not Started, 0/24 credits, 6 courses | Semesters |
+| How are my scores in semester 3? | Prototype score 78.7% + per course | Scores |
 | **What is my official university CGPA formula?** | **"I cannot verify that from the current Degree OS data."** + prototype % offered, labelled not-a-CGPA | Syllabus · 🛡️ safe refusal |
 | **What is the minimum attendance requirement?** | **"I cannot verify that from the current Degree OS data."** | Syllabus · 🛡️ safe refusal |
 | Write me a poem about compilers | "AI API not connected" message | — |

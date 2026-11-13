@@ -1277,9 +1277,9 @@ def rule_guard(ql: str) -> dict | None:
 
 def ans_help() -> dict:
     return {"text": "I'm **Degree AI** — I answer from your Degree OS data only. Try:\n"
-                    "- *What subjects are left in Sem 5?*\n- *When is my next IA?*\n- *Show my next holiday*\n"
+                    "- *What subjects are left in Sem 3?*\n- *When is my next IA?*\n- *Show my next holiday*\n"
                     "- *What topics are in FLAT?*\n- *What's the status of semester 6?*\n- *What's overdue in my checklist?*\n"
-                    "- *How are my scores in semester 4?*",
+                    "- *How are my scores in semester 2?*",
             "areas": ["General"]}
 
 
@@ -1518,7 +1518,7 @@ def degree_ai(q: str, history: list[dict]) -> dict:
 
 
 SUGGESTIONS = [
-    "What courses are still incomplete in Semester 5?",
+    "What courses are still incomplete in Semester 3?",
     "When is my next internal assessment?",
     "Show my next holiday",
     "What topics are in Data Structures?",

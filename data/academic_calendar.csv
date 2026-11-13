@@ -1,32 +1,32 @@
 academic_year,semester,date,event_type,title
-2024-25,1,2024-08-01,Academic,Semester 1 classes commence
-2024-25,1,2024-10-31,Holiday,Diwali
-2024-25,1,2024-12-09,Exam,End-semester examinations begin
-2024-25,2,2025-01-13,Academic,Semester 2 classes commence
-2024-25,2,2025-03-14,Holiday,Holi
-2025-26,3,2025-07-21,Academic,Semester 3 classes commence
-2025-26,3,2025-10-20,Holiday,Diwali
-2025-26,4,2026-01-12,Academic,Semester 4 classes commence
-2025-26,4,2026-05-04,Exam,End-semester examinations begin
-2026-27,5,2026-07-20,Academic,Semester 5 classes commence
-2026-27,5,2026-08-15,Holiday,Independence Day
-2026-27,5,2026-10-02,Holiday,Gandhi Jayanti
-2026-27,5,2026-10-04,Exam,Mid-semester examinations begin
-2026-27,5,2026-10-20,Holiday,Dussehra
-2026-27,5,2026-11-08,Holiday,Diwali
-2026-27,5,2026-11-09,Leave,Diwali break (Govardhan Puja)
-2026-27,5,2026-11-14,Holiday,Children's Day / College Holiday
-2026-27,5,2026-11-24,Holiday,Guru Nanak Jayanti
-2026-27,5,2026-11-28,Academic,Last working day of classes
-2026-27,5,2026-12-01,Exam,End-semester practical examinations begin
-2026-27,5,2026-12-07,Exam,End-semester theory examinations begin
-2026-27,5,2026-12-21,Leave,Winter break begins
-2026-27,5,2026-12-25,Holiday,Christmas
-2026-27,6,2027-01-11,Academic,Semester 6 classes commence
-2026-27,6,2027-01-26,Holiday,Republic Day
-2026-27,6,2027-03-15,Exam,Mid-semester examinations begin
-2026-27,6,2027-03-22,Holiday,Holi
-2026-27,6,2027-05-10,Exam,End-semester examinations begin
-2026-27,6,2027-06-01,Leave,Summer internship window opens
-2027-28,7,2027-07-19,Academic,Semester 7 classes commence
-2027-28,8,2028-01-10,Academic,Semester 8 classes commence
+2025-26,1,2025-07-21,Academic,Semester 1 classes commence
+2025-26,1,2025-08-15,Holiday,Independence Day
+2025-26,1,2025-10-20,Holiday,Diwali
+2025-26,1,2025-12-08,Exam,End-semester examinations begin
+2025-26,2,2026-01-12,Academic,Semester 2 classes commence
+2025-26,2,2026-03-04,Holiday,Holi
+2025-26,2,2026-05-04,Exam,End-semester examinations begin
+2026-27,3,2026-07-20,Academic,Semester 3 classes commence
+2026-27,3,2026-08-15,Holiday,Independence Day
+2026-27,3,2026-10-02,Holiday,Gandhi Jayanti
+2026-27,3,2026-10-04,Exam,Mid-semester examinations begin
+2026-27,3,2026-10-20,Holiday,Dussehra
+2026-27,3,2026-11-08,Holiday,Diwali
+2026-27,3,2026-11-09,Leave,Diwali break (Govardhan Puja)
+2026-27,3,2026-11-14,Holiday,Children's Day / College Holiday
+2026-27,3,2026-11-24,Holiday,Guru Nanak Jayanti
+2026-27,3,2026-11-28,Academic,Last working day of classes
+2026-27,3,2026-12-01,Exam,End-semester practical examinations begin
+2026-27,3,2026-12-07,Exam,End-semester theory examinations begin
+2026-27,3,2026-12-21,Leave,Winter break begins
+2026-27,3,2026-12-25,Holiday,Christmas
+2026-27,4,2027-01-11,Academic,Semester 4 classes commence
+2026-27,4,2027-01-26,Holiday,Republic Day
+2026-27,4,2027-03-15,Exam,Mid-semester examinations begin
+2026-27,4,2027-03-22,Holiday,Holi
+2026-27,4,2027-05-10,Exam,End-semester examinations begin
+2026-27,4,2027-06-01,Leave,Summer break begins
+2027-28,5,2027-07-19,Academic,Semester 5 classes commence
+2027-28,6,2028-01-10,Academic,Semester 6 classes commence
+2028-29,7,2028-07-17,Academic,Semester 7 classes commence
+2028-29,8,2029-01-08,Academic,Semester 8 classes commence

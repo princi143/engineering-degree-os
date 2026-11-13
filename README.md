@@ -47,7 +47,7 @@ python -m streamlit run app.py
 | `courses.csv` | Code, name, short name, credits, faculty, syllabus topics (`;`-separated), status |
 | `academic_calendar.csv` | Academic / Exam / Holiday / Leave events with academic_year + semester |
 | `assessments.csv` | IA1, IA2, Assignment, Lab Evaluation, Project Review, Mid/End Semester |
-| `scores.csv` | Marks and grades (4 completed semesters + Sem 5 mid-sems) |
+| `scores.csv` | Marks and grades (2 completed semesters + Sem 3 mid-sems) |
 | `plan_checklist.csv` | category, item, target_date, status, notes, scope (Semester / Degree) |
 | `university_syllabus.csv` | Programme fields + source/reference. Official CGPA formula and regulations are intentionally blank. |
 

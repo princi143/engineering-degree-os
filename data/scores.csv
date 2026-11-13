@@ -12,23 +12,10 @@ semester,course_code,assessment_type,score,max_marks,grade
 2,CSEG1024,End Semester,93,100,O
 2,ENVS1001,End Semester,80,100,A
 2,SLLS1002,End Semester,78,100,B+
-3,CSEG2001,End Semester,79,100,B+
-3,CSEG2002,End Semester,86,100,A
-3,CSEG2003,End Semester,84,100,A
-3,CSEG2004,End Semester,73,100,B+
-3,MATH2050,End Semester,71,100,B+
-3,CSEG2005,End Semester,92,100,O
-4,MATH2059,End Semester,77,100,B+
-4,CSEG2006,End Semester,83,100,A
-4,CSEG2007,End Semester,81,100,A
-4,CSEG2008,End Semester,87,100,A
-4,CSEG2011,End Semester,85,100,A
-4,CSDV2001,End Semester,95,100,O
-4,CSEG2010,End Semester,90,100,O
-5,CSEG3040,IA1,24,30,
-5,CSEG3015,IA1,22,30,
-5,CSEG3056,Mid Semester,38,50,
-5,CSEG3021,Mid Semester,41,50,
-5,CSEG3015,Mid Semester,36,50,
-5,CSEG3002,Mid Semester,43,50,
-5,CSEG3040,Mid Semester,40,50,
+3,CSEG3040,IA1,24,30,
+3,CSEG3015,IA1,22,30,
+3,CSEG3056,Mid Semester,38,50,
+3,CSEG3021,Mid Semester,41,50,
+3,CSEG3015,Mid Semester,36,50,
+3,CSEG3002,Mid Semester,43,50,
+3,CSEG3040,Mid Semester,40,50,

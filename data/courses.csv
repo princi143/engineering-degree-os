@@ -1,51 +1,51 @@
 semester,course_code,course_name,short_name,credits,faculty,syllabus,status
-1,MATH1028,Engineering Mathematics I,EM1,4,Dept. of Mathematics,"Matrices; Differential calculus; Integral calculus; Ordinary differential equations",Completed
-1,PHYS1019,Engineering Physics,Physics,4,Dept. of Physics,"Waves and optics; Quantum basics; Semiconductors; Lasers",Completed
-1,CSEG1021,Programming in C,C,5,School of Computer Science,"Data types; Control flow; Functions; Pointers; Structures; File I/O",Completed
-1,ECEG1012,Basic Electrical and Electronics Engineering,BEEE,4,Dept. of Electrical,"DC circuits; AC fundamentals; Diodes; Transistors; Logic gates",Completed
-1,MECH1003,Engineering Graphics,EG,3,Dept. of Mechanical,"Projections; Sections; Isometric views; CAD basics",Completed
-1,SLLS1001,Communication Skills,Comm,2,School of Liberal Studies,"Listening; Presentations; Email writing; Group discussion",Completed
-2,MATH1029,Engineering Mathematics II,EM2,4,Dept. of Mathematics,"Vector calculus; Laplace transforms; Fourier series; Complex numbers",Completed
-2,CHEM1008,Engineering Chemistry,Chem,3,Dept. of Chemistry,"Electrochemistry; Polymers; Water treatment; Spectroscopy",Completed
-2,CSEG1022,Data Structures,DS,5,School of Computer Science,"Arrays; Linked lists; Stacks; Queues; Trees; Graphs; Hashing; Sorting",Completed
-2,CSEG1023,Linux and Shell Scripting,Linux,3,School of Computer Science,"File system; Permissions; Bash scripting; Processes; Cron",Completed
-2,CSEG1024,Python Programming,Python,4,School of Computer Science,"Syntax; Collections; OOP in Python; Modules; NumPy basics",Completed
-2,ENVS1001,Environmental Studies,EVS,2,School of Liberal Studies,"Ecosystems; Pollution; Sustainability; Environmental law",Completed
-2,SLLS1002,Critical Thinking and Writing,CTW,2,School of Liberal Studies,"Argument structure; Logical fallacies; Academic writing",Completed
-3,CSEG2001,Design and Analysis of Algorithms,DAA,4,School of Computer Science,"Asymptotic analysis; Divide and conquer; Greedy; Dynamic programming; Graph algorithms; NP-completeness",Completed
-3,CSEG2002,Database Management Systems,DBMS,4,School of Computer Science,"ER model; Relational algebra; SQL; Normalization; Transactions; Indexing",Completed
-3,CSEG2003,Object Oriented Programming in Java,OOP,4,School of Computer Science,"Classes; Inheritance; Polymorphism; Exceptions; Collections; Multithreading",Completed
-3,CSEG2004,Digital Logic Design,DLD,4,School of Computer Science,"Boolean algebra; K-maps; Combinational circuits; Flip-flops; Counters",Completed
-3,MATH2050,Discrete Mathematics,DM,4,Dept. of Mathematics,"Logic; Sets and relations; Combinatorics; Graph theory; Recurrences",Completed
-3,CSEG2005,Web Technologies,Web,4,School of Computer Science,"HTML; CSS; JavaScript; DOM; REST; React basics",Completed
-4,MATH2059,Linear Algebra,LA,4,Dept. of Mathematics,"Vector spaces; Linear transformations; Eigenvalues; Orthogonality; SVD",Completed
-4,CSEG2006,Operating Systems,OS,4,School of Computer Science,"Processes; Scheduling; Synchronization; Deadlocks; Memory management; File systems",Completed
-4,CSEG2007,Computer Networks,CN,4,School of Computer Science,"OSI and TCP/IP; Routing; Transport layer; DNS; HTTP; Network security basics",Completed
-4,CSEG2008,Software Engineering,SE,3,School of Computer Science,"SDLC models; Requirements; Agile; Testing; Project estimation",Completed
-4,CSEG2011,Cloud Computing Fundamentals,Cloud,3,School of Computer Science,"Virtualization; IaaS PaaS SaaS; AWS basics; Storage; Scaling",Completed
-4,CSDV2001,DevOps and Containerization,DevOps,4,School of Computer Science,"Git workflows; Docker; CI/CD with Jenkins; Kubernetes basics",Completed
-4,CSEG2010,Minor Project I,MP1,2,School of Computer Science,"Problem statement; Design; Implementation; Demo and report",Completed
-5,CSEG3040,Cryptography and Network Security,CNS,4,School of Computer Science,"Classical ciphers; Symmetric ciphers (DES/AES); Public-key cryptography (RSA); Hash functions; Digital signatures; Network security protocols",In Progress
-5,CSEG3002,Object Oriented Analysis and Design,OOAD,3,School of Computer Science,"OO concepts; UML class diagrams; Use case diagrams; Sequence and activity diagrams; Design patterns",In Progress
-5,CSEG3056,"Probability, Entropy and Monte Carlo Simulation",PEMC,3,School of Computer Science,"Probability distributions; Random variables; Entropy and information; Monte Carlo methods; Random number generation",In Progress
-5,CSEG3015,Formal Languages and Automata Theory,FLAT,4,School of Computer Science,"DFA and NFA; Regular expressions; Pumping lemma; Context-free grammars; Pushdown automata; Turing machines",In Progress
-5,CSEG3021,Computer Organization and Architecture,COA,4,School of Computer Science,"Instruction set architecture; ALU design; Memory hierarchy; Pipelining; I/O organisation",In Progress
-5,CSDV3024P,DevSecOps Lab,DevSecOps,2,School of Computer Science,"SAST and DAST; Container scanning; Secrets management; Secure CI/CD pipelines",In Progress
-5,CSEG3099,Industry Project,IP,4,Industry Mentor,"Problem discovery; Requirement analysis; Prototype build; Reviews; Final presentation",In Progress
-6,CSEG3101,Compiler Design,CD,4,School of Computer Science,"Lexical analysis; Parsing; Syntax-directed translation; Code generation; Optimisation",Not Started
-6,CSEG3102,Machine Learning,ML,4,School of Computer Science,"Regression; Classification; Clustering; Model evaluation; Neural network basics",Not Started
-6,CSEG3103,Distributed Systems,DSys,4,School of Computer Science,"Clocks; Consensus; Replication; Fault tolerance; Microservices",Not Started
-6,CSDV3105,Cloud Native Security (Elective I),CNSec,3,School of Computer Science,"Kubernetes security; Zero trust; Policy as code; Supply-chain security",Not Started
-6,CSDV3106P,MLOps Lab,MLOps,2,School of Computer Science,"Experiment tracking; Model serving; Monitoring; Pipelines",Not Started
-6,CSEG3110,Minor Project II,MP2,4,School of Computer Science,"Proposal; Design review; Build; Demo",Not Started
-6,SLLS3001,Professional Ethics,Ethics,3,School of Liberal Studies,"Ethical frameworks; IP and licensing; Data privacy; Workplace ethics",Not Started
-7,CSEG4001,Deep Learning,DL,4,School of Computer Science,"CNNs; RNNs; Transformers; Optimisation; Transfer learning",Not Started
-7,CSEG4002,Big Data Analytics,BDA,4,School of Computer Science,"Hadoop; Spark; NoSQL; Stream processing",Not Started
-7,CSEG4010,Program Elective III,PE3,3,School of Computer Science,"Chosen from elective basket",Not Started
-7,OPEN4001,Open Elective I,OE1,3,Various,"Chosen from open elective basket",Not Started
-7,CSEG4090,Summer Internship Evaluation,Internship,4,Training and Placement,"Internship report; Viva; Industry feedback",Not Started
-7,CSEG4098,Major Project Phase I,Capstone1,4,School of Computer Science,"Literature review; Problem definition; Architecture; Prototype",Not Started
-8,CSEG4099,Major Project Phase II,Capstone2,10,School of Computer Science,"Full implementation; Testing; Thesis; Final viva",Not Started
-8,CSEG4011,Program Elective IV,PE4,3,School of Computer Science,"Chosen from elective basket",Not Started
-8,OPEN4002,Open Elective II,OE2,3,Various,"Chosen from open elective basket",Not Started
-8,CSEG4095,Technical Seminar,Seminar,2,School of Computer Science,"Topic selection; Paper review; Presentation",Not Started
+1,MATH1028,Engineering Mathematics I,EM1,4,Dept. of Mathematics,Matrices; Differential calculus; Integral calculus; Ordinary differential equations,Completed
+1,PHYS1019,Engineering Physics,Physics,4,Dept. of Physics,Waves and optics; Quantum basics; Semiconductors; Lasers,Completed
+1,CSEG1021,Programming in C,C,5,School of Computer Science,Data types; Control flow; Functions; Pointers; Structures; File I/O,Completed
+1,ECEG1012,Basic Electrical and Electronics Engineering,BEEE,4,Dept. of Electrical,DC circuits; AC fundamentals; Diodes; Transistors; Logic gates,Completed
+1,MECH1003,Engineering Graphics,EG,3,Dept. of Mechanical,Projections; Sections; Isometric views; CAD basics,Completed
+1,SLLS1001,Communication Skills,Comm,2,School of Liberal Studies,Listening; Presentations; Email writing; Group discussion,Completed
+2,MATH1029,Engineering Mathematics II,EM2,4,Dept. of Mathematics,Vector calculus; Laplace transforms; Fourier series; Complex numbers,Completed
+2,CHEM1008,Engineering Chemistry,Chem,3,Dept. of Chemistry,Electrochemistry; Polymers; Water treatment; Spectroscopy,Completed
+2,CSEG1022,Data Structures,DS,5,School of Computer Science,Arrays; Linked lists; Stacks; Queues; Trees; Graphs; Hashing; Sorting,Completed
+2,CSEG1023,Linux and Shell Scripting,Linux,3,School of Computer Science,File system; Permissions; Bash scripting; Processes; Cron,Completed
+2,CSEG1024,Python Programming,Python,4,School of Computer Science,Syntax; Collections; OOP in Python; Modules; NumPy basics,Completed
+2,ENVS1001,Environmental Studies,EVS,2,School of Liberal Studies,Ecosystems; Pollution; Sustainability; Environmental law,Completed
+2,SLLS1002,Critical Thinking and Writing,CTW,2,School of Liberal Studies,Argument structure; Logical fallacies; Academic writing,Completed
+3,CSEG3040,Cryptography and Network Security,CNS,4,School of Computer Science,Classical ciphers; Symmetric ciphers (DES/AES); Public-key cryptography (RSA); Hash functions; Digital signatures; Network security protocols,In Progress
+3,CSEG3002,Object Oriented Analysis and Design,OOAD,3,School of Computer Science,OO concepts; UML class diagrams; Use case diagrams; Sequence and activity diagrams; Design patterns,In Progress
+3,CSEG3056,"Probability, Entropy and Monte Carlo Simulation",PEMC,3,School of Computer Science,Probability distributions; Random variables; Entropy and information; Monte Carlo methods; Random number generation,In Progress
+3,CSEG3015,Formal Languages and Automata Theory,FLAT,4,School of Computer Science,DFA and NFA; Regular expressions; Pumping lemma; Context-free grammars; Pushdown automata; Turing machines,In Progress
+3,CSEG3021,Computer Organization and Architecture,COA,4,School of Computer Science,Instruction set architecture; ALU design; Memory hierarchy; Pipelining; I/O organisation,In Progress
+3,CSDV3024P,DevSecOps Lab,DevSecOps,2,School of Computer Science,SAST and DAST; Container scanning; Secrets management; Secure CI/CD pipelines,In Progress
+3,CSEG3099,Industry Project,IP,4,Industry Mentor,Problem discovery; Requirement analysis; Prototype build; Reviews; Final presentation,In Progress
+4,CSEG2001,Design and Analysis of Algorithms,DAA,4,School of Computer Science,Asymptotic analysis; Divide and conquer; Greedy; Dynamic programming; Graph algorithms; NP-completeness,Not Started
+4,CSEG2002,Database Management Systems,DBMS,4,School of Computer Science,ER model; Relational algebra; SQL; Normalization; Transactions; Indexing,Not Started
+4,CSEG2003,Object Oriented Programming in Java,OOP,4,School of Computer Science,Classes; Inheritance; Polymorphism; Exceptions; Collections; Multithreading,Not Started
+4,CSEG2004,Digital Logic Design,DLD,4,School of Computer Science,Boolean algebra; K-maps; Combinational circuits; Flip-flops; Counters,Not Started
+4,MATH2050,Discrete Mathematics,DM,4,Dept. of Mathematics,Logic; Sets and relations; Combinatorics; Graph theory; Recurrences,Not Started
+4,CSEG2005,Web Technologies,Web,4,School of Computer Science,HTML; CSS; JavaScript; DOM; REST; React basics,Not Started
+5,MATH2059,Linear Algebra,LA,4,Dept. of Mathematics,Vector spaces; Linear transformations; Eigenvalues; Orthogonality; SVD,Not Started
+5,CSEG2006,Operating Systems,OS,4,School of Computer Science,Processes; Scheduling; Synchronization; Deadlocks; Memory management; File systems,Not Started
+5,CSEG2007,Computer Networks,CN,4,School of Computer Science,OSI and TCP/IP; Routing; Transport layer; DNS; HTTP; Network security basics,Not Started
+5,CSEG2008,Software Engineering,SE,3,School of Computer Science,SDLC models; Requirements; Agile; Testing; Project estimation,Not Started
+5,CSEG2011,Cloud Computing Fundamentals,Cloud,3,School of Computer Science,Virtualization; IaaS PaaS SaaS; AWS basics; Storage; Scaling,Not Started
+5,CSDV2001,DevOps and Containerization,DevOps,4,School of Computer Science,Git workflows; Docker; CI/CD with Jenkins; Kubernetes basics,Not Started
+5,CSEG2010,Minor Project I,MP1,2,School of Computer Science,Problem statement; Design; Implementation; Demo and report,Not Started
+6,CSEG3101,Compiler Design,CD,4,School of Computer Science,Lexical analysis; Parsing; Syntax-directed translation; Code generation; Optimisation,Not Started
+6,CSEG3102,Machine Learning,ML,4,School of Computer Science,Regression; Classification; Clustering; Model evaluation; Neural network basics,Not Started
+6,CSEG3103,Distributed Systems,DSys,4,School of Computer Science,Clocks; Consensus; Replication; Fault tolerance; Microservices,Not Started
+6,CSDV3105,Cloud Native Security (Elective I),CNSec,3,School of Computer Science,Kubernetes security; Zero trust; Policy as code; Supply-chain security,Not Started
+6,CSDV3106P,MLOps Lab,MLOps,2,School of Computer Science,Experiment tracking; Model serving; Monitoring; Pipelines,Not Started
+6,CSEG3110,Minor Project II,MP2,4,School of Computer Science,Proposal; Design review; Build; Demo,Not Started
+6,SLLS3001,Professional Ethics,Ethics,3,School of Liberal Studies,Ethical frameworks; IP and licensing; Data privacy; Workplace ethics,Not Started
+7,CSEG4001,Deep Learning,DL,4,School of Computer Science,CNNs; RNNs; Transformers; Optimisation; Transfer learning,Not Started
+7,CSEG4002,Big Data Analytics,BDA,4,School of Computer Science,Hadoop; Spark; NoSQL; Stream processing,Not Started
+7,CSEG4010,Program Elective III,PE3,3,School of Computer Science,Chosen from elective basket,Not Started
+7,OPEN4001,Open Elective I,OE1,3,Various,Chosen from open elective basket,Not Started
+7,CSEG4090,Summer Internship Evaluation,Internship,4,Training and Placement,Internship report; Viva; Industry feedback,Not Started
+7,CSEG4098,Major Project Phase I,Capstone1,4,School of Computer Science,Literature review; Problem definition; Architecture; Prototype,Not Started
+8,CSEG4099,Major Project Phase II,Capstone2,10,School of Computer Science,Full implementation; Testing; Thesis; Final viva,Not Started
+8,CSEG4011,Program Elective IV,PE4,3,School of Computer Science,Chosen from elective basket,Not Started
+8,OPEN4002,Open Elective II,OE2,3,Various,Chosen from open elective basket,Not Started
+8,CSEG4095,Technical Seminar,Seminar,2,School of Computer Science,Topic selection; Paper review; Presentation,Not Started

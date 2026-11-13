@@ -1,9 +1,9 @@
 semester,status,total_credits,completed_credits,academic_year,term
-1,Completed,22,22,2024-25,Odd
-2,Completed,23,23,2024-25,Even
-3,Completed,24,24,2025-26,Odd
-4,Completed,24,24,2025-26,Even
-5,In Progress,24,0,2026-27,Odd
-6,Not Started,24,0,2026-27,Even
-7,Not Started,22,0,2027-28,Odd
-8,Not Started,18,0,2027-28,Even
+1,Completed,22,22,2025-26,Odd
+2,Completed,23,23,2025-26,Even
+3,In Progress,24,0,2026-27,Odd
+4,Not Started,24,0,2026-27,Even
+5,Not Started,24,0,2027-28,Odd
+6,Not Started,24,0,2027-28,Even
+7,Not Started,22,0,2028-29,Odd
+8,Not Started,18,0,2028-29,Even
