@@ -9,6 +9,7 @@ Data Admin page without touching this code.
 from __future__ import annotations
 
 import html as _html
+import logging
 import os
 import re
 import shutil
@@ -70,6 +71,7 @@ NAV = [
     "🎯  Plan & Checklist",
     "🤖  Ask Degree AI",
     "🛠️  Data Admin",
+    "☁️  Cloud Feedback",
 ]
 
 # ----------------------------------------------------------------------------
@@ -1788,12 +1790,155 @@ def page_admin() -> None:
 
 
 # ----------------------------------------------------------------------------
+# 12 Cloud Feedback (Supabase)
+# ----------------------------------------------------------------------------
+# Flow: browser form -> Streamlit (this server) -> Supabase API -> PostgreSQL table public.app_feedback.
+# Ownership is enforced by Row Level Security in the database (see supabase/schema.sql):
+# each signed-in user can insert and read only their own rows.
+log = logging.getLogger("degree_os.cloud")
+
+
+def supabase_settings() -> tuple[str | None, str | None]:
+    """Read the project URL and publishable key from .streamlit/secrets.toml or the host's Secrets."""
+    try:
+        return st.secrets["SUPABASE_URL"], st.secrets["SUPABASE_PUBLISHABLE_KEY"]
+    except (FileNotFoundError, KeyError, AttributeError):
+        return None, None
+    except Exception:  # noqa: BLE001 - malformed secrets file
+        return None, None
+
+
+def session_client(url: str, key: str):
+    """One Supabase client per browser session. Never put this in st.cache_resource:
+    auth changes the client, and cached resources are shared between users."""
+    if "_supabase" not in st.session_state:
+        from supabase import create_client
+        st.session_state["_supabase"] = create_client(url, key)
+    return st.session_state["_supabase"]
+
+
+def fmt_ts(value) -> str:
+    ts = pd.to_datetime(value, errors="coerce", utc=True)
+    if pd.isna(ts):
+        return str(value)
+    return ts.tz_convert("Asia/Kolkata").strftime("%d %b %Y, %I:%M %p")
+
+
+def page_cloud() -> None:
+    header(12, "Cloud Feedback", "Sign in, send feedback, and it's saved permanently in Supabase — only you can see yours.")
+    H(f"""<div class="kpis" style="grid-template-columns:repeat(auto-fit,minmax(170px,1fr))">
+    <div class="kpi" style="--acc:{CYAN}"><div class="lab">01 · Browser form</div><div class="foot">You type a name + message</div></div>
+    <div class="kpi" style="--acc:{LIME}"><div class="lab">02 · Streamlit</div><div class="foot">Python server validates it</div></div>
+    <div class="kpi" style="--acc:{VIOLET}"><div class="lab">03 · Supabase API</div><div class="foot">Checks who you are</div></div>
+    <div class="kpi" style="--acc:{AMBER}"><div class="lab">04 · PostgreSQL</div><div class="foot">RLS keeps rows private</div></div></div>""")
+
+    url, key = supabase_settings()
+    if not url or not key:
+        note("🟡 <b>Supabase is not configured.</b> Add <code>SUPABASE_URL</code> and "
+             "<code>SUPABASE_PUBLISHABLE_KEY</code> to <code>.streamlit/secrets.toml</code> (local) or the app's "
+             "Secrets (Streamlit Cloud), then restart the app. The rest of Degree OS keeps working without it.")
+        st.code('SUPABASE_URL = "https://YOUR_PROJECT_REF.supabase.co"\n'
+                'SUPABASE_PUBLISHABLE_KEY = "sb_publishable_REPLACE_WITH_YOUR_KEY"', language="toml")
+        return
+
+    try:
+        db = session_client(url, key)
+        session = db.auth.get_session()
+    except ImportError:
+        st.error("The `supabase` package is missing. Run: `python -m pip install -r requirements.txt` and restart.")
+        return
+    except Exception:  # noqa: BLE001
+        log.exception("Supabase connection or session failed")
+        st.error("Could not connect. Check your settings and Supabase project.")
+        return
+
+    # ---------- signed out: sign-in form ----------
+    if session is None:
+        subhead("Sign in")
+        st.caption("Use the application account created in Supabase → Authentication → Users "
+                   "(not your Supabase dashboard login).")
+        with st.form("sb_sign_in", clear_on_submit=True):
+            email = st.text_input("Email")
+            password = st.text_input("Password", type="password")
+            sign_in = st.form_submit_button("Sign in", type="primary")
+        if sign_in:
+            if not email.strip() or not password:
+                st.warning("Enter your email and password.")
+            else:
+                try:
+                    result = db.auth.sign_in_with_password({"email": email.strip(), "password": password})
+                except Exception:  # noqa: BLE001
+                    log.exception("Supabase sign in failed")
+                    st.error("Sign in failed. Check your credentials and account status.")
+                else:
+                    if result.session is not None:
+                        st.rerun()
+                    st.error("No session was created. Check your account status.")
+        return
+
+    # ---------- signed in ----------
+    c1, c2 = st.columns([4, 1])
+    c1.markdown(f"{pill('Signed in', 'ok')} &nbsp; **{esc(session.user.email)}**", unsafe_allow_html=True)
+    if c2.button("Sign out", key="sb_sign_out", width="stretch"):
+        try:
+            db.auth.sign_out({"scope": "local"})
+        except Exception:  # noqa: BLE001
+            log.exception("Remote sign out failed; clearing local session")
+        st.session_state.pop("_supabase", None)
+        st.rerun()
+
+    subhead("Add feedback")
+    with st.form("sb_feedback"):
+        name = st.text_input("Your name", max_chars=100)
+        message = st.text_area("Message", max_chars=2000, placeholder="What should Degree OS do better?")
+        save = st.form_submit_button("Save", type="primary")
+
+    if save:  # the only place a row is written - normal reruns never insert
+        name, message = name.strip(), message.strip()
+        if not name or not message:
+            st.warning("Enter both your name and a message.")
+        else:
+            try:
+                # user_id, id and created_at are assigned by the database.
+                result = db.table("app_feedback").insert({"name": name, "message": message}).execute()
+            except Exception:  # noqa: BLE001
+                log.exception("Supabase insert failed")
+                st.error("Save could not be confirmed. Refresh records before retrying.")
+            else:
+                st.success("Saved in Supabase.")
+                if result.data:
+                    st.caption(f"Record ID: {result.data[0]['id']}")
+
+    subhead("Your saved feedback")
+    st.button("Refresh records", key="sb_refresh")
+    try:
+        # No user_id filter needed: RLS returns only this user's rows.
+        result = (db.table("app_feedback").select("id, name, message, created_at")
+                  .order("created_at", desc=True).limit(50).execute())
+    except Exception:  # noqa: BLE001
+        log.exception("Supabase read failed")
+        st.error("Could not load records. Check the table, permissions and session.")
+        return
+    rows = result.data or []
+    if not rows:
+        st.info("No feedback saved for this account yet.")
+        return
+    st.metric("Records saved by you", len(rows))
+    df = pd.DataFrame(rows)
+    df["created_at"] = df["created_at"].map(fmt_ts)
+    st.dataframe(df[["created_at", "name", "message", "id"]], hide_index=True, width="stretch",
+                 column_config={"created_at": st.column_config.TextColumn("Saved at (IST)"),
+                                "message": st.column_config.TextColumn("Message", width="large"),
+                                "id": st.column_config.TextColumn("Record ID")})
+
+
+# ----------------------------------------------------------------------------
 # Router
 # ----------------------------------------------------------------------------
 PAGES = {
     NAV[0]: page_dashboard, NAV[1]: page_semesters, NAV[2]: page_courses, NAV[3]: page_university,
     NAV[4]: page_calendar, NAV[5]: page_assessments, NAV[6]: page_status, NAV[7]: page_scorecard,
-    NAV[8]: page_plan, NAV[9]: page_ai, NAV[10]: page_admin,
+    NAV[8]: page_plan, NAV[9]: page_ai, NAV[10]: page_admin, NAV[11]: page_cloud,
 }
 PAGES.get(page, page_dashboard)()
 

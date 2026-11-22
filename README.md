@@ -8,7 +8,7 @@ Built with **Python + Streamlit + Pandas**, optional **Gemini (google-genai)** f
 
 ---
 
-## What's inside (11 pages)
+## What's inside (12 pages)
 
 | #   | Page                          | What it does                                                                                                                                                                              |
 | --- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -78,6 +78,29 @@ Without a key, the chatbot still answers incomplete courses, next assessment, ne
 
 > Note: on Streamlit Cloud, Data Admin edits persist until the app restarts. Commit the updated CSVs (Download CSV button) to make them permanent.
 
+## Supabase — Cloud Feedback (permanent, per-user storage)
+
+Flow: **browser form → Streamlit (Python) → Supabase API → PostgreSQL table `public.app_feedback`**.
+Students sign in, save a name + message, and see only their own saved feedback. Row Level Security in the database enforces ownership; records survive app restarts.
+
+| Item | Value |
+|---|---|
+| Supabase project | `engineering-degree-os` · ref `lsyjwixpiqtwczzzcjub` · region ap-south-1 (Mumbai) |
+| Table + policies | `supabase/schema.sql` (already applied as migration `create_app_feedback`) |
+| Page | **☁️ Cloud Feedback** (12th item in the sidebar) |
+
+**Setup**
+1. Supabase dashboard → **Authentication → Users → Add user → Create new user** (tick *Auto Confirm User*). Create two test accounts.
+2. Create `.streamlit/secrets.toml` (copy `secrets.toml.example`) with:
+   ```toml
+   SUPABASE_URL = "https://lsyjwixpiqtwczzzcjub.supabase.co"
+   SUPABASE_PUBLISHABLE_KEY = "sb_publishable_..."   # Settings → API Keys → publishable
+   ```
+3. `python -m pip install -r requirements.txt` then `python -m streamlit run app.py` → open **☁️ Cloud Feedback**, sign in, Save.
+4. Streamlit Cloud: paste the same two lines into **App → Settings → Secrets**.
+
+Use only the **publishable** key — secret / service_role keys bypass RLS. The Supabase client is kept per browser session (`st.session_state`), never in a global cache.
+
 ## Troubleshooting
 
 | Problem                        | Fix                                                                          |
@@ -86,6 +109,9 @@ Without a key, the chatbot still answers incomplete courses, next assessment, ne
 | CSV not found                  | The app shows a friendly warning; check the `data/` folder and file names    |
 | Column not found               | Compare CSV headers with the required columns shown on Data Admin            |
 | Chatbot fails on cloud         | Add `GEMINI_API_KEY` in app Secrets; the local engine still works without it |
+| Supabase: missing secrets / KeyError | Check `.streamlit/secrets.toml` spelling + quotes, restart the app |
+| Supabase: sign-in fails | Use the app user from Authentication → Users (not your dashboard login); make sure it is confirmed |
+| Supabase: empty list, no error | That account has no rows yet — RLS hides other users' rows |
 | Gemini rate limit              | The app automatically falls back to the local engine                         |
 
 See `TESTING.md` for the evidence log and `SUBMISSION.md` for the submission sheet.

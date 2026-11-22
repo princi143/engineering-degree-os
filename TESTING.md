@@ -49,3 +49,36 @@ Run date: 13 Nov 2026 (re-run after switching the current semester to Semester 3
 - [x] Chatbot gives a grounded answer and a safe "cannot verify" response.
 
 Bug found and fixed during testing: a generative request ("write a poem about compilers") was being matched to the Compiler Design course; generation requests now route to Gemini or the "AI API not connected" message.
+
+## Supabase — Cloud Feedback (22 Nov 2026)
+
+**Database (live project `lsyjwixpiqtwczzzcjub`), checked as real user roles** — run as the `authenticated` / `anon` roles with JWT claims inside one transaction that was rolled back (no data kept):
+
+| Check | Result |
+|---|---|
+| Table `public.app_feedback` exists, RLS enabled, 2 policies (Read own / Insert own) | ✅ PASS |
+| `anon` has no select/insert; `authenticated` has select+insert only (no update/delete) | ✅ PASS |
+| User A inserts a row and sees it (A_sees=1) | ✅ PASS |
+| Blank name rejected by the check constraint | ✅ PASS |
+| User B sees none of A's rows (B_sees=0) | ✅ PASS |
+| User B inserting a row with A's user_id → blocked by RLS | ✅ PASS |
+| User B update of A's row → permission denied | ✅ PASS |
+| Signed-out visitor select / insert → denied | ✅ PASS |
+| Supabase security advisor | ✅ 0 issues |
+
+**App (Streamlit AppTest with a stand-in Supabase client; the test workspace cannot reach supabase.co):**
+
+| Check | Result |
+|---|---|
+| No secrets → friendly "not configured" note, other pages unaffected | ✅ |
+| Signed out → only the sign-in form is shown | ✅ |
+| Wrong password → "Sign in failed" | ✅ |
+| Empty name → warning, 0 rows written | ✅ |
+| One valid Save → exactly 1 insert, row shown in "Your saved feedback" | ✅ |
+| Normal rerun + Refresh → still 1 insert (no duplicates) | ✅ |
+| User B after sign-out/sign-in sees 0 rows; B's own save shows only B's row | ✅ |
+| New browser session → must sign in again; A's record still there | ✅ |
+| All 12 pages render with no exceptions | ✅ |
+| Real `supabase` 2.34.1 client accepts every call the page makes | ✅ |
+
+**Still to run by you (needs your test accounts + network):** sign in on localhost and on the deployed app, Save once, confirm the row in Supabase Table Editor, restart the app and confirm it is still there.
