@@ -52,7 +52,7 @@ Bug found and fixed during testing: a generative request ("write a poem about co
 
 ## Supabase — Cloud Feedback (22 Nov 2026)
 
-**Database (live project `lsyjwixpiqtwczzzcjub`), checked as real user roles** — run as the `authenticated` / `anon` roles with JWT claims inside one transaction that was rolled back (no data kept):
+**Database (live project `hxhvyujyzkjhrgefinoz`, re-run there via SQL Editor: all PASS), checked as real user roles** — run as the `authenticated` / `anon` roles with JWT claims inside one transaction that was rolled back (no data kept):
 
 | Check | Result |
 |---|---|

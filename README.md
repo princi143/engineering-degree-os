@@ -85,15 +85,15 @@ Students sign in, save a name + message, and see only their own saved feedback. 
 
 | Item | Value |
 |---|---|
-| Supabase project | `engineering-degree-os` · ref `lsyjwixpiqtwczzzcjub` · region ap-south-1 (Mumbai) |
-| Table + policies | `supabase/schema.sql` (already applied as migration `create_app_feedback`) |
+| Supabase project | `princi143's Project` · ref `hxhvyujyzkjhrgefinoz` · region ap-south-1 (Mumbai) |
+| Table + policies | `supabase/schema.sql` (applied via SQL Editor on 22 Nov 2026) |
 | Page | **☁️ Cloud Feedback** (12th item in the sidebar) |
 
 **Setup**
 1. Supabase dashboard → **Authentication → Users → Add user → Create new user** (tick *Auto Confirm User*). Create two test accounts.
 2. Create `.streamlit/secrets.toml` (copy `secrets.toml.example`) with:
    ```toml
-   SUPABASE_URL = "https://lsyjwixpiqtwczzzcjub.supabase.co"
+   SUPABASE_URL = "https://hxhvyujyzkjhrgefinoz.supabase.co"
    SUPABASE_PUBLISHABLE_KEY = "sb_publishable_..."   # Settings → API Keys → publishable
    ```
 3. `python -m pip install -r requirements.txt` then `python -m streamlit run app.py` → open **☁️ Cloud Feedback**, sign in, Save.

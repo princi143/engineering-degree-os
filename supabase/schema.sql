@@ -1,6 +1,6 @@
 -- Engineering Degree OS - Cloud Feedback table.
--- Run once in the SQL Editor of a NEW Supabase project (already applied to project lsyjwixpiqtwczzzcjub
--- as migration "create_app_feedback"). Do not re-run over an existing table.
+-- Run once in the SQL Editor of a NEW Supabase project (already applied to project hxhvyujyzkjhrgefinoz
+-- via SQL Editor). Do not re-run over an existing table.
 begin;
 
 create table public.app_feedback (
